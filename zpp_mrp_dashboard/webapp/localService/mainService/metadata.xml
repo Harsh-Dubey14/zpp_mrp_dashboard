@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="SAP__aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="SAP__analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AUTHORIZATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Authorization.V1" Alias="SAP__authorization"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="SAP__capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="SAP__communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HIERARCHY',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Hierarchy.v1" Alias="SAP__hierarchy"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="SAP__HTML5"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="SAP__measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.ODM.v1" Alias="SAP__ODM"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="SAP__personalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Session.v1" Alias="SAP__session"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SUPPORT',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Support.v1" Alias="SAP__support"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="SAP__UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="SAP__validation"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="com.sap.gateway.srvd_a2x.zui_mrp_lable_api.v0001" Alias="SAP__self">
+            <Annotation Term="SAP__core.SchemaVersion" String="1.0.0"/>
+            <EntityType Name="SetPackingHeaderType">
+                <Key>
+                    <PropertyRef Name="SetId"/>
+                </Key>
+                <Property Name="SetId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="PostingDate" Type="Edm.Date"/>
+                <Property Name="DocumentDate" Type="Edm.Date"/>
+                <Property Name="HeaderText" Type="Edm.String" Nullable="false" MaxLength="25"/>
+                <Property Name="PackingRatio" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3"/>
+                <Property Name="SizeSet" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="Zmblnr" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Zmjahr" Type="Edm.String" Nullable="false" MaxLength="4"/>
+            </EntityType>
+            <EntityType Name="MRPLabelType">
+                <Key>
+                    <PropertyRef Name="Manufacturingorder"/>
+                    <PropertyRef Name="Salesorder"/>
+                    <PropertyRef Name="Salesorderitem"/>
+                    <PropertyRef Name="Material"/>
+                    <PropertyRef Name="UniqueNo"/>
+                    <PropertyRef Name="Batch"/>
+                </Key>
+                <Property Name="Manufacturingorder" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="Salesorder" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Salesorderitem" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="UniqueNo" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="Batch" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="Color" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="Sizes" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="2"/>
+                <Property Name="Top" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="Bottom" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="Unit" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="LegcyBarcode" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="LegacyLot" Type="Edm.String" Nullable="false" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="BoxPackingItemType">
+                <Key>
+                    <PropertyRef Name="BoxPackId"/>
+                    <PropertyRef Name="ItemId"/>
+                </Key>
+                <Property Name="BoxPackId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ItemId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="SalesOrderItem" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="Batch" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ProductionOrder" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="StyleName" Type="Edm.String" Nullable="false" MaxLength="80"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3"/>
+                <Property Name="Zsize" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="Color" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="Recdbatch" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Barcode" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="ScanIndicator" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="DeletionMark" Type="Edm.String" Nullable="false" MaxLength="1"/>
+            </EntityType>
+            <EntityType Name="BoxPackingHeaderType">
+                <Key>
+                    <PropertyRef Name="BoxPackId"/>
+                </Key>
+                <Property Name="BoxPackId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="ScheduleDate311" Type="Edm.Date"/>
+                <Property Name="PostingDate261" Type="Edm.Date"/>
+                <Property Name="DocumentDate261" Type="Edm.Date"/>
+                <Property Name="PackingRatio" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3"/>
+                <Property Name="SizeSet" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="GoodsMovementCode261" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="OverallStatus" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="CurrentStep" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="RetryAllowed" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="PostingMode" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="MatDoc311" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="MatDocYear311" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="MatDoc261" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="MatDocYear261" Type="Edm.String" Nullable="false" MaxLength="4"/>
+            </EntityType>
+            <EntityType Name="SetPackingItemType">
+                <Key>
+                    <PropertyRef Name="ItemId"/>
+                </Key>
+                <Property Name="ItemId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="SetId" Type="Edm.Guid"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="SalesOrderItem" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="PackingRatio" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3"/>
+                <Property Name="BarcodeNumber" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="Batch" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Recbatch" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ProductionOrder" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="LotNumber" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="StyleName" Type="Edm.String" Nullable="false" MaxLength="80"/>
+                <Property Name="Uom" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3"/>
+                <Property Name="Zsize" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="Color" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="ScanIndicator" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="DeletionMark" Type="Edm.String" Nullable="false" MaxLength="1"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="BoxPackingHeader" EntityType="com.sap.gateway.srvd_a2x.zui_mrp_lable_api.v0001.BoxPackingHeaderType"/>
+                <EntitySet Name="BoxPackingItem" EntityType="com.sap.gateway.srvd_a2x.zui_mrp_lable_api.v0001.BoxPackingItemType"/>
+                <EntitySet Name="MRPLabel" EntityType="com.sap.gateway.srvd_a2x.zui_mrp_lable_api.v0001.MRPLabelType"/>
+                <EntitySet Name="SetPackingHeader" EntityType="com.sap.gateway.srvd_a2x.zui_mrp_lable_api.v0001.SetPackingHeaderType"/>
+                <EntitySet Name="SetPackingItem" EntityType="com.sap.gateway.srvd_a2x.zui_mrp_lable_api.v0001.SetPackingItemType"/>
+            </EntityContainer>
+            <Annotations Target="SAP__self.SetPackingHeaderType/Zmblnr">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Material Document"/>
+                <Annotation Term="SAP__common.Heading" String="Mat. Doc."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Number of Material Document"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MBLNR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingHeaderType/Zmjahr">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Material Doc. Year"/>
+                <Annotation Term="SAP__common.Heading" String="MatYr"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Material Document Year"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MJAHR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingHeaderType">
+                <Annotation Term="SAP__common.Label" String="Interface view for Set Packing Header"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/SetPackingHeader">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType/Salesorder">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="SD Document"/>
+                <Annotation Term="SAP__common.Heading" String="Document"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Sales and Distribution Document Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VBELN"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType/Salesorderitem">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Item (SD)"/>
+                <Annotation Term="SAP__common.Heading" String="Item"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Item number of the SD document"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=POSNR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType/Material">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Material"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Material Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MATNR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType/Batch">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Batch"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Batch Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CHARG_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WERKS_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType/Unit">
+                <Annotation Term="SAP__common.IsUnit"/>
+            </Annotations>
+            <Annotations Target="SAP__self.MRPLabelType">
+                <Annotation Term="SAP__common.Label" String="Interface view for MRP Lable"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/MRPLabel">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Container">
+                <Annotation Term="SAP__CodeList.UnitsOfMeasure">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="CollectionPath" String="UnitsOfMeasure"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="SAP__capabilities.FilterFunctions">
+                    <Collection>
+                        <String>eq</String>
+                        <String>ne</String>
+                        <String>gt</String>
+                        <String>ge</String>
+                        <String>lt</String>
+                        <String>le</String>
+                        <String>and</String>
+                        <String>or</String>
+                        <String>contains</String>
+                        <String>startswith</String>
+                        <String>endswith</String>
+                        <String>any</String>
+                        <String>all</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__support.TechnicalInfoLinks">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="FunctionImport" String="GetTechnicalInfoLinks"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SupportedFormats">
+                    <Collection>
+                        <String>application/json</String>
+                        <String>application/pdf</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__PDF.Features">
+                    <Record>
+                        <PropertyValue Property="DocumentDescriptionReference" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="DocumentDescriptionCollection" String="MyDocumentDescriptions"/>
+                        <PropertyValue Property="ArchiveFormat" Bool="true"/>
+                        <PropertyValue Property="Border" Bool="true"/>
+                        <PropertyValue Property="CoverPage" Bool="true"/>
+                        <PropertyValue Property="FitToPage" Bool="true"/>
+                        <PropertyValue Property="FontName" Bool="true"/>
+                        <PropertyValue Property="FontSize" Bool="true"/>
+                        <PropertyValue Property="HeaderFooter" Bool="true"/>
+                        <PropertyValue Property="IANATimezoneFormat" Bool="true"/>
+                        <PropertyValue Property="Margin" Bool="true"/>
+                        <PropertyValue Property="Padding" Bool="true"/>
+                        <PropertyValue Property="ResultSizeDefault" Int="20000"/>
+                        <PropertyValue Property="ResultSizeMaximum" Int="20000"/>
+                        <PropertyValue Property="Signature" Bool="true"/>
+                        <PropertyValue Property="TextDirectionLayout" Bool="true"/>
+                        <PropertyValue Property="Treeview" Bool="true"/>
+                        <PropertyValue Property="UploadToFileShare" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.BatchSupport">
+                    <Record>
+                        <PropertyValue Property="SupportedFormats">
+                            <Collection>
+                                <String>application/json</String>
+                                <String>multipart/mixed</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.KeyAsSegmentSupported"/>
+                <Annotation Term="SAP__capabilities.AsynchronousRequestsSupported"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WERKS_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/SalesOrder">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Sales Document"/>
+                <Annotation Term="SAP__common.Heading" String="Sales Doc."/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VBELN_VA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/SalesOrderItem">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Sales Document Item"/>
+                <Annotation Term="SAP__common.Heading" String="SDItem"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=POSNR_VA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/Batch">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Batch"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Batch Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CHARG_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/ProductionOrder">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Order"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Order Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=AUFNR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/Recdbatch">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Batch"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Batch Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CHARG_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType">
+                <Annotation Term="SAP__common.Label" String="Interface View for Box Packing Item"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/BoxPackingItem">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingHeaderType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WERKS_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingHeaderType/MatDocYear311">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingHeaderType/MatDocYear261">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingHeaderType">
+                <Annotation Term="SAP__common.Label" String="Interface View for Box Packing Header"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/BoxPackingHeader">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WERKS_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/SalesOrder">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Sales Document"/>
+                <Annotation Term="SAP__common.Heading" String="Sales Doc."/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VBELN_VA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/SalesOrderItem">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Sales Document Item"/>
+                <Annotation Term="SAP__common.Heading" String="SDItem"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=POSNR_VA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/Batch">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Batch"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Batch Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CHARG_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/Recbatch">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Batch"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Batch Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CHARG_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/ProductionOrder">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Order"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Order Number"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=AUFNR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/Uom">
+                <Annotation Term="SAP__common.IsUnit"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType">
+                <Annotation Term="SAP__common.Label" String="Interface view for Set Packing Item"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/SetPackingItem">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingHeaderType/SetId">
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/BoxPackId">
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingItemType/ItemId">
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingHeaderType/BoxPackId">
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.BoxPackingHeaderType/RetryAllowed">
+                <Annotation Term="SAP__common.Label" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/ItemId">
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.SetPackingItemType/SetId">
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

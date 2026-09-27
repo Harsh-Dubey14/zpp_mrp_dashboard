@@ -1,0 +1,15 @@
+<mvc:View
+    controllerName="zpp.mrp.dashboard.zppmrpdashboard.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <App id="app">
+        <pages>
+            <mvc:XMLView
+                id="Dashboard"
+                viewName="zpp.mrp.dashboard.zppmrpdashboard.view.Dashboard" />
+        </pages>
+    </App>
+
+</mvc:View>

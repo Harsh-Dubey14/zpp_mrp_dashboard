@@ -1,0 +1,1109 @@
+<mvc:View
+    controllerName="zpp.mrp.dashboard.zppmrpdashboard.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
+
+    <Page
+        id="dashboardPage"
+        title="MRP Label Dashboard"
+        showHeader="true">
+
+        <content>
+
+            <VBox class="dashboardContainer">
+
+                <!-- ================================================= -->
+                <!-- EXECUTIVE HERO BANNER                             -->
+                <!-- ================================================= -->
+                <HBox
+                    class="dashboardHero"
+                    width="100%"
+                    justifyContent="SpaceBetween"
+                    alignItems="Center">
+
+                    <VBox>
+                        <HBox alignItems="Center">
+                            <core:Icon src="sap-icon://bbyd-dashboard" class="heroIcon" />
+                            <Title
+                                text="MRP Label &amp; Packaging Operations Dashboard"
+                                level="H1"
+                                class="heroTitle" />
+                        </HBox>
+                        <Text
+                            text="Real-time production tracking, box packaging metrics, and plant analytics"
+                            class="heroSubtitle" />
+                    </VBox>
+
+                    <HBox alignItems="Center" class="heroActions">
+                        <HBox alignItems="Center" class="livePill">
+                            <Text text="● Live System" class="livePillText" />
+                        </HBox>
+                        <Text text="{view>/lastUpdated}" class="lastUpdatedText" />
+                        <Button
+                            text="Refresh"
+                            icon="sap-icon://refresh"
+                            type="Emphasized"
+                            press=".onRefresh"
+                            class="heroRefreshBtn" />
+                    </HBox>
+
+                </HBox>
+
+                <!-- ================================================= -->
+                <!-- ACTIVE LINE ITEM CONTEXT FILTER BANNER            -->
+                <!-- ================================================= -->
+                <HBox
+                    visible="{selection>/hasSelection}"
+                    class="activeFilterBanner"
+                    width="100%"
+                    alignItems="Center"
+                    justifyContent="SpaceBetween">
+
+                    <HBox alignItems="Center" class="filterBannerLeft">
+                        <HBox class="filterBannerIconWrapper">
+                            <core:Icon src="sap-icon://filter" class="filterBannerIcon" />
+                        </HBox>
+                        <VBox>
+                            <HBox alignItems="Center" class="filterTitleRow">
+                                <Title text="Graphs Filtered by Selected Line Item" level="H3" class="filterBannerTitle" />
+                                <ObjectStatus
+                                    text="{selection>/orderTag}"
+                                    state="Information"
+                                    inverted="true"
+                                    class="filterOrderTag" />
+                            </HBox>
+                            <Text text="{selection>/filterSummary}" class="filterBannerSummary" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox alignItems="Center" class="filterBannerActions">
+                        <Button
+                            text="View Item Details"
+                            icon="sap-icon://inspection"
+                            type="Ghost"
+                            press=".onShowSelectedItemDetails"
+                            class="filterDetailBtn" />
+                        <Button
+                            text="Reset / View All Graphs"
+                            icon="sap-icon://clear-filter"
+                            type="Emphasized"
+                            press=".onClearSelection"
+                            class="filterResetBtn" />
+                    </HBox>
+
+                </HBox>
+
+                <!-- ================================================= -->
+                <!-- KPI OVERVIEW SECTION                              -->
+                <!-- ================================================= -->
+                <HBox alignItems="Center" class="sectionHeader">
+                    <core:Icon src="sap-icon://kpi-corporate-performance" class="sectionIcon" />
+                    <Title
+                        text="{= ${selection>/hasSelection} ? 'Key Performance Indicators (Filtered View)' : 'Key Performance Indicators'}"
+                        level="H2"
+                        class="sectionTitle" />
+                    <ToolbarSpacer />
+                    <ObjectStatus
+                        visible="{selection>/hasSelection}"
+                        text="Showing item-filtered scope"
+                        state="Information"
+                        class="filteredBadge" />
+                </HBox>
+
+                <HBox
+                    class="kpiContainer"
+                    width="100%"
+                    fitContainer="true"
+                    justifyContent="SpaceBetween"
+                    alignItems="Stretch"
+                    wrap="NoWrap">
+
+                    <!-- KPI 1: MRP Labels -->
+                    <VBox class="kpiCard kpiThemeBlue">
+                        <layoutData>
+                            <FlexItemData
+                                growFactor="1"
+                                shrinkFactor="1"
+                                baseSize="0%" />
+                        </layoutData>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTop">
+                            <Text text="MRP Labels" class="kpiLabel" />
+                            <HBox class="kpiIconWrapper kpiIconBlue">
+                                <core:Icon src="sap-icon://bar-code" class="kpiIcon" />
+                            </HBox>
+                        </HBox>
+                        <Text
+                            class="kpiNumber"
+                            text="{kpi>/mrpCount}" />
+                        <HBox alignItems="Center" class="kpiFooter">
+                            <core:Icon src="sap-icon://tags" class="kpiSubIcon" />
+                            <Text text="{kpi>/mrpSubtitle}" class="kpiSubtitle" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- KPI 2: Box Headers -->
+                    <VBox class="kpiCard kpiThemeIndigo">
+                        <layoutData>
+                            <FlexItemData
+                                growFactor="1"
+                                shrinkFactor="1"
+                                baseSize="0%" />
+                        </layoutData>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTop">
+                            <Text text="Box Packing" class="kpiLabel" />
+                            <HBox class="kpiIconWrapper kpiIconIndigo">
+                                <core:Icon src="sap-icon://shipping-status" class="kpiIcon" />
+                            </HBox>
+                        </HBox>
+                        <Text
+                            class="kpiNumber"
+                            text="{kpi>/boxHeaderCount}" />
+                        <HBox alignItems="Center" class="kpiFooter">
+                            <core:Icon src="sap-icon://inventory" class="kpiSubIcon" />
+                            <Text text="{kpi>/boxHeaderSubtitle}" class="kpiSubtitle" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- KPI 3: Box Items -->
+                    <VBox class="kpiCard kpiThemeCyan">
+                        <layoutData>
+                            <FlexItemData
+                                growFactor="1"
+                                shrinkFactor="1"
+                                baseSize="0%" />
+                        </layoutData>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTop">
+                            <Text text="Box Items" class="kpiLabel" />
+                            <HBox class="kpiIconWrapper kpiIconCyan">
+                                <core:Icon src="sap-icon://product" class="kpiIcon" />
+                            </HBox>
+                        </HBox>
+                        <Text
+                            class="kpiNumber"
+                            text="{kpi>/boxItemCount}" />
+                        <HBox alignItems="Center" class="kpiFooter">
+                            <core:Icon src="sap-icon://dimension" class="kpiSubIcon" />
+                            <Text text="{kpi>/boxItemSubtitle}" class="kpiSubtitle" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- KPI 4: Set Headers -->
+                    <VBox class="kpiCard kpiThemeAmber">
+                        <layoutData>
+                            <FlexItemData
+                                growFactor="1"
+                                shrinkFactor="1"
+                                baseSize="0%" />
+                        </layoutData>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTop">
+                            <Text text="Set Packing" class="kpiLabel" />
+                            <HBox class="kpiIconWrapper kpiIconAmber">
+                                <core:Icon src="sap-icon://collections-management" class="kpiIcon" />
+                            </HBox>
+                        </HBox>
+                        <Text
+                            class="kpiNumber"
+                            text="{kpi>/setHeaderCount}" />
+                        <HBox alignItems="Center" class="kpiFooter">
+                            <core:Icon src="sap-icon://group-2" class="kpiSubIcon" />
+                            <Text text="{kpi>/setHeaderSubtitle}" class="kpiSubtitle" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- KPI 5: Set Items -->
+                    <VBox class="kpiCard kpiThemeEmerald">
+                        <layoutData>
+                            <FlexItemData
+                                growFactor="1"
+                                shrinkFactor="1"
+                                baseSize="0%" />
+                        </layoutData>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="kpiCardTop">
+                            <Text text="Set Items" class="kpiLabel" />
+                            <HBox class="kpiIconWrapper kpiIconEmerald">
+                                <core:Icon src="sap-icon://checklist-item" class="kpiIcon" />
+                            </HBox>
+                        </HBox>
+                        <Text
+                            class="kpiNumber"
+                            text="{kpi>/setItemCount}" />
+                        <HBox alignItems="Center" class="kpiFooter">
+                            <core:Icon src="sap-icon://org-chart" class="kpiSubIcon" />
+                            <Text text="{kpi>/setItemSubtitle}" class="kpiSubtitle" />
+                        </HBox>
+                    </VBox>
+
+                </HBox>
+
+                <!-- ================================================= -->
+                <!-- ANALYTICS SECTION                                 -->
+                <!-- ================================================= -->
+                <HBox
+                    alignItems="Center"
+                    justifyContent="SpaceBetween"
+                    class="sectionHeader analyticsHeader"
+                    width="100%"
+                    wrap="Wrap">
+                    <HBox alignItems="Center" class="sectionHeaderTitleBox">
+                        <layoutData>
+                            <FlexItemData growFactor="1" shrinkFactor="1" minWidth="0" />
+                        </layoutData>
+                        <HBox class="analyticsIconWrapper">
+                            <core:Icon src="sap-icon://chart-axis" class="analyticsMainIcon" />
+                        </HBox>
+                        <VBox class="analyticsTitleVBox">
+                            <HBox alignItems="Center" class="analyticsTitleRow">
+                                <Title
+                                    text="{= ${selection>/hasSelection} ? 'Operational Analytics (' + ${selection>/orderTag} + ')' : 'Operational Analytics'}"
+                                    level="H2"
+                                    class="sectionTitle" />
+                                <ObjectStatus
+                                    visible="{selection>/hasSelection}"
+                                    text="Filtered Scope"
+                                    state="Information"
+                                    class="sectionFilterBadge" />
+                            </HBox>
+                            <Text
+                                text="{= ${selection>/hasSelection} ? 'Synchronized across MRP, Box, and Set packing for ' + ${selection>/orderTag} : 'Real-time performance views across MRP, Box &amp; Set Packing'}"
+                                class="analyticsSubtitle" />
+                        </VBox>
+                    </HBox>
+                </HBox>
+
+                <VBox class="chartContainer" width="100%">
+
+                    <!-- ============================================= -->
+                    <!-- ROW 1: MRP PRODUCTION ANALYTICS (2 CHARTS)    -->
+                    <!-- ============================================= -->
+                    <VBox
+                        class="chartDomainGroup"
+                        width="100%">
+                        <HBox alignItems="Center" class="domainRowHeader domainRowHeaderBlue">
+                            <core:Icon src="sap-icon://bar-code" class="domainIcon domainIconBlue" />
+                            <Title text="MRP Production Labels" level="H4" class="domainTitle" />
+                            <Text text="— Label Status &amp; Style Distribution" class="domainSubtitle" />
+                        </HBox>
+
+                        <HBox class="chartRow" width="100%">
+                            <!-- 1. MRP STATUS -->
+                            <Panel class="chartCard" width="100%">
+                                <layoutData>
+                                    <FlexItemData
+                                        growFactor="1"
+                                        shrinkFactor="1"
+                                        baseSize="0%" />
+                                </layoutData>
+                                <headerToolbar>
+                                    <Toolbar class="cardHeaderToolbar">
+                                        <core:Icon src="sap-icon://pie-chart" class="chartCardIcon" />
+                                        <VBox>
+                                            <Title text="MRP Label Status" level="H3" class="chartCardTitle" />
+                                            <Text text="{chartMeta>/mrpStatusSubtitle}" class="chartCardSubtitle" />
+                                        </VBox>
+                                        <ToolbarSpacer />
+                                        <ObjectStatus text="{chartMeta>/mrpStatusBadge}" state="Information" class="chartTypeBadge" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <viz:VizFrame
+                                        id="mrpStatusChart"
+                                        vizType="donut"
+                                        width="100%"
+                                        height="330px"
+                                        uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{chart>/mrpStatus}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        name="Status"
+                                                        value="{chart>Status}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        name="Count"
+                                                        value="{chart>Count}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                uid="size"
+                                                type="Measure"
+                                                values="Count" />
+                                            <viz.feeds:FeedItem
+                                                uid="color"
+                                                type="Dimension"
+                                                values="Status" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </content>
+                            </Panel>
+
+                            <!-- 2. MRP MATERIAL / STYLE BREAKDOWN -->
+                            <Panel class="chartCard" width="100%">
+                                <layoutData>
+                                    <FlexItemData
+                                        growFactor="1"
+                                        shrinkFactor="1"
+                                        baseSize="0%" />
+                                </layoutData>
+                                <headerToolbar>
+                                    <Toolbar class="cardHeaderToolbar">
+                                        <core:Icon src="sap-icon://product" class="chartCardIcon" />
+                                        <VBox>
+                                            <Title text="MRP Labels by Material / Style" level="H3" class="chartCardTitle" />
+                                            <Text text="{chartMeta>/mrpMaterialSubtitle}" class="chartCardSubtitle" />
+                                        </VBox>
+                                        <ToolbarSpacer />
+                                        <ObjectStatus text="{chartMeta>/mrpMaterialBadge}" state="Information" class="chartTypeBadge" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <viz:VizFrame
+                                        id="mrpMaterialChart"
+                                        vizType="column"
+                                        width="100%"
+                                        height="330px"
+                                        uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{chart>/mrpMaterial}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        name="Material"
+                                                        value="{chart>Material}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        name="Count"
+                                                        value="{chart>Count}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                uid="categoryAxis"
+                                                type="Dimension"
+                                                values="Material" />
+                                            <viz.feeds:FeedItem
+                                                uid="valueAxis"
+                                                type="Measure"
+                                                values="Count" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </content>
+                            </Panel>
+                        </HBox>
+                    </VBox>
+
+                    <!-- ============================================= -->
+                    <!-- ROW 2: BOX PACKING OPERATIONS (2 CHARTS)      -->
+                    <!-- ============================================= -->
+                    <VBox
+                        class="chartDomainGroup"
+                        width="100%">
+                        <HBox alignItems="Center" class="domainRowHeader domainRowHeaderIndigo">
+                            <core:Icon src="sap-icon://shipping-status" class="domainIcon domainIconIndigo" />
+                            <Title text="Box Packing Operations" level="H4" class="domainTitle" />
+                            <Text text="— Packaging Status &amp; Plant Volume" class="domainSubtitle" />
+                        </HBox>
+
+                        <HBox class="chartRow" width="100%">
+                            <!-- 3. BOX PACKING STATUS -->
+                            <Panel class="chartCard" width="100%">
+                                <layoutData>
+                                    <FlexItemData
+                                        growFactor="1"
+                                        shrinkFactor="1"
+                                        baseSize="0%" />
+                                </layoutData>
+                                <headerToolbar>
+                                    <Toolbar class="cardHeaderToolbar">
+                                        <core:Icon src="sap-icon://shipping-status" class="chartCardIcon" />
+                                        <VBox>
+                                            <Title text="Box Packing Status" level="H3" class="chartCardTitle" />
+                                            <Text text="{chartMeta>/boxStatusSubtitle}" class="chartCardSubtitle" />
+                                        </VBox>
+                                        <ToolbarSpacer />
+                                        <ObjectStatus text="{chartMeta>/boxStatusBadge}" state="Information" class="chartTypeBadge" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <viz:VizFrame
+                                        id="boxStatusChart"
+                                        vizType="column"
+                                        width="100%"
+                                        height="330px"
+                                        uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{chart>/boxStatus}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        name="Status"
+                                                        value="{chart>Status}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        name="Count"
+                                                        value="{chart>Count}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                uid="categoryAxis"
+                                                type="Dimension"
+                                                values="Status" />
+                                            <viz.feeds:FeedItem
+                                                uid="valueAxis"
+                                                type="Measure"
+                                                values="Count" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </content>
+                            </Panel>
+
+                            <!-- 4. BOX QUANTITY BY PLANT -->
+                            <Panel class="chartCard" width="100%">
+                                <layoutData>
+                                    <FlexItemData
+                                        growFactor="1"
+                                        shrinkFactor="1"
+                                        baseSize="0%" />
+                                </layoutData>
+                                <headerToolbar>
+                                    <Toolbar class="cardHeaderToolbar">
+                                        <core:Icon src="sap-icon://factory" class="chartCardIcon" />
+                                        <VBox>
+                                            <Title text="Box Item Quantity by Plant" level="H3" class="chartCardTitle" />
+                                            <Text text="{chartMeta>/boxQtySubtitle}" class="chartCardSubtitle" />
+                                        </VBox>
+                                        <ToolbarSpacer />
+                                        <ObjectStatus text="{chartMeta>/boxQtyBadge}" state="Information" class="chartTypeBadge" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <viz:VizFrame
+                                        id="boxQuantityChart"
+                                        vizType="column"
+                                        width="100%"
+                                        height="330px"
+                                        uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{chart>/boxQuantity}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        name="Plant"
+                                                        value="{chart>Plant}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        name="Quantity"
+                                                        value="{chart>Quantity}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                uid="categoryAxis"
+                                                type="Dimension"
+                                                values="Plant" />
+                                            <viz.feeds:FeedItem
+                                                uid="valueAxis"
+                                                type="Measure"
+                                                values="Quantity" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </content>
+                            </Panel>
+                        </HBox>
+                    </VBox>
+
+                    <!-- ============================================= -->
+                    <!-- ROW 3: SET PACKING OPERATIONS (2 CHARTS)      -->
+                    <!-- SET PACKING STATUS IS ON THE LEFT!            -->
+                    <!-- ============================================= -->
+                    <VBox
+                        class="chartDomainGroup"
+                        width="100%">
+                        <HBox alignItems="Center" class="domainRowHeader domainRowHeaderAmber">
+                            <core:Icon src="sap-icon://collections-management" class="domainIcon domainIconAmber" />
+                            <Title text="Set Packing Operations" level="H4" class="domainTitle" />
+                            <Text text="— Set Execution Status &amp; Plant Allocation" class="domainSubtitle" />
+                        </HBox>
+
+                        <HBox class="chartRow" width="100%">
+                            <!-- 5. SET PACKING STATUS (ON THE LEFT SIDE, FULL 50% WIDTH) -->
+                            <Panel class="chartCard" width="100%">
+                                <layoutData>
+                                    <FlexItemData
+                                        growFactor="1"
+                                        shrinkFactor="1"
+                                        baseSize="0%" />
+                                </layoutData>
+                                <headerToolbar>
+                                    <Toolbar class="cardHeaderToolbar">
+                                        <core:Icon src="sap-icon://collections-management" class="chartCardIcon" />
+                                        <VBox>
+                                            <Title text="Set Packing Status" level="H3" class="chartCardTitle" />
+                                            <Text text="{chartMeta>/setStatusSubtitle}" class="chartCardSubtitle" />
+                                        </VBox>
+                                        <ToolbarSpacer />
+                                        <ObjectStatus text="{chartMeta>/setStatusBadge}" state="Success" class="chartTypeBadge" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <viz:VizFrame
+                                        id="setStatusChart"
+                                        vizType="column"
+                                        width="100%"
+                                        height="330px"
+                                        uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{chart>/setStatus}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        name="Status"
+                                                        value="{chart>Status}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        name="Count"
+                                                        value="{chart>Count}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                uid="categoryAxis"
+                                                type="Dimension"
+                                                values="Status" />
+                                            <viz.feeds:FeedItem
+                                                uid="valueAxis"
+                                                type="Measure"
+                                                values="Count" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </content>
+                            </Panel>
+
+                            <!-- 6. SET QUANTITY BY PLANT (ON THE RIGHT SIDE, FULL 50% WIDTH) -->
+                            <Panel class="chartCard" width="100%">
+                                <layoutData>
+                                    <FlexItemData
+                                        growFactor="1"
+                                        shrinkFactor="1"
+                                        baseSize="0%" />
+                                </layoutData>
+                                <headerToolbar>
+                                    <Toolbar class="cardHeaderToolbar">
+                                        <core:Icon src="sap-icon://org-chart" class="chartCardIcon" />
+                                        <VBox>
+                                            <Title text="Set Item Quantity by Plant" level="H3" class="chartCardTitle" />
+                                            <Text text="{chartMeta>/setQtySubtitle}" class="chartCardSubtitle" />
+                                        </VBox>
+                                        <ToolbarSpacer />
+                                        <ObjectStatus text="{chartMeta>/setQtyBadge}" state="Information" class="chartTypeBadge" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <viz:VizFrame
+                                        id="setQuantityChart"
+                                        vizType="column"
+                                        width="100%"
+                                        height="330px"
+                                        uiConfig="{applicationSet:'fiori'}">
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset data="{chart>/setQuantity}">
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        name="Plant"
+                                                        value="{chart>Plant}" />
+                                                </viz.data:dimensions>
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        name="Quantity"
+                                                        value="{chart>Quantity}" />
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                uid="categoryAxis"
+                                                type="Dimension"
+                                                values="Plant" />
+                                            <viz.feeds:FeedItem
+                                                uid="valueAxis"
+                                                type="Measure"
+                                                values="Quantity" />
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </content>
+                            </Panel>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+
+                <!-- ================================================= -->
+                <!-- MRP TABLE SECTION                                 -->
+                <!-- ================================================= -->
+                <HBox alignItems="Center" class="sectionHeader">
+                    <core:Icon src="sap-icon://table-view" class="sectionIcon" />
+                    <Title
+                        text="Operational Directory"
+                        level="H2"
+                        class="sectionTitle" />
+                    <ToolbarSpacer />
+                    <Text
+                        text="Select a category to view all records • Click row to cross-filter charts"
+                        class="sectionHint" />
+                </HBox>
+
+                <!-- Clean, compact IconTabBar for selecting dataset -->
+                <IconTabBar
+                    id="cdsViewTabBar"
+                    select=".onDatasetTabSelect"
+                    selectedKey="{table>/activeDataset}"
+                    headerMode="Inline"
+                    expanded="false"
+                    class="sapUiNoContentPadding cdsViewTabBar">
+                    <items>
+                        <IconTabFilter
+                            key="mrp"
+                            text="MRP Label"
+                            icon="sap-icon://bar-code" />
+                        <IconTabFilter
+                            key="boxHdr"
+                            text="Box Header"
+                            icon="sap-icon://shipping-status" />
+                        <IconTabFilter
+                            key="boxItem"
+                            text="Box Item"
+                            icon="sap-icon://product" />
+                        <IconTabFilter
+                            key="setHdr"
+                            text="Set Header"
+                            icon="sap-icon://collections-management" />
+                        <IconTabFilter
+                            key="setItem"
+                            text="Set Item"
+                            icon="sap-icon://tree" />
+                    </items>
+                </IconTabBar>
+
+                <Panel class="tableCard" width="100%">
+                    <headerToolbar>
+                        <Toolbar class="cardHeaderToolbar tableHeaderToolbar">
+                            <core:Icon src="sap-icon://database" class="tableCardIcon" />
+                            <Title text="{table>/activeDatasetTitle}" level="H3" class="tableCardTitle" />
+                            <ObjectStatus
+                                text="{= ${table>/totalRecords} + ' total records'}"
+                                state="Information"
+                                class="tableBadge" />
+
+                            <ToolbarSpacer />
+
+                            <!-- Active filter tag inside table toolbar if selected -->
+                            <ObjectStatus
+                                visible="{selection>/hasSelection}"
+                                text="{= 'Active: ' + ${selection>/orderTag} }"
+                                state="Warning"
+                                inverted="true"
+                                class="tableFilterTag" />
+
+                            <Button
+                                visible="{selection>/hasSelection}"
+                                text="Clear Selection"
+                                icon="sap-icon://decline"
+                                type="Transparent"
+                                press=".onClearSelection" />
+
+                            <!-- Rows Per Page Selector on Top -->
+                            <HBox alignItems="Center" class="topPageSizeBox">
+                                <Text text="Rows per page:" class="pageSizeLabel" />
+                                <Select
+                                    selectedKey="{table>/pageSize}"
+                                    change=".onPageSizeChange"
+                                    class="pageSizeSelect">
+                                    <core:Item key="10" text="10" />
+                                    <core:Item key="25" text="25" />
+                                    <core:Item key="50" text="50" />
+                                    <core:Item key="100" text="100" />
+                                </Select>
+                            </HBox>
+
+                            <SearchField
+                                id="searchField"
+                                width="280px"
+                                placeholder="Search across all fields..."
+                                search=".onSearchTable"
+                                liveChange=".onSearchTable" />
+
+                            <Button
+                                icon="sap-icon://refresh"
+                                type="Transparent"
+                                tooltip="Refresh Data"
+                                press=".onRefresh" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <content>
+                        <ScrollContainer
+                            horizontal="true"
+                            vertical="false"
+                            width="100%">
+
+                            <!-- ========================================================= -->
+                            <!-- 1. MRP LABEL TABLE (ZI_MRP_LABLE1) - ALL 16 FIELDS       -->
+                            <!-- ========================================================= -->
+                            <Table
+                                id="mrpTable"
+                                items="{table>/pagedData}"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onSelectLineItem"
+                                itemPress=".onLineItemPress"
+                                inset="false"
+                                visible="{= ${table>/activeDataset} === 'mrp' }"
+                                noDataText="No records found in ZI_MRP_LABLE1"
+                                class="mrpCustomTable">
+                                <columns>
+                                    <Column width="160px"><Text text="Manufacturingorder" class="colHeader" /></Column>
+                                    <Column width="130px"><Text text="Salesorder" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Salesorderitem" class="colHeader" /></Column>
+                                    <Column width="170px"><Text text="Material" class="colHeader" /></Column>
+                                    <Column width="130px"><Text text="UniqueNo" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Batch" class="colHeader" /></Column>
+                                    <Column width="100px"><Text text="Status" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Plant" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="Color" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Sizes" class="colHeader" /></Column>
+                                    <Column width="100px"><Text text="Price" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Top" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Bottom" class="colHeader" /></Column>
+                                    <Column width="80px"><Text text="Unit" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="LegcyBarcode" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="LegacyLot" class="colHeader" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" type="Active">
+                                        <cells>
+                                            <Text text="{table>Manufacturingorder}" class="boldOrderId" />
+                                            <Text text="{table>Salesorder}" />
+                                            <Text text="{table>Salesorderitem}" />
+                                            <Text text="{table>Material}" />
+                                            <Text text="{table>UniqueNo}" />
+                                            <Text text="{table>Batch}" class="batchText" />
+                                            <ObjectStatus
+                                                text="{table>statusText}"
+                                                state="{table>statusState}"
+                                                icon="{table>statusIcon}"
+                                                inverted="true"
+                                                class="statusPill" />
+                                            <Text text="{table>displayPlant}" />
+                                            <Text text="{table>Color}" />
+                                            <Text text="{table>Sizes}" />
+                                            <Text text="{table>Price}" />
+                                            <Text text="{table>Top}" />
+                                            <Text text="{table>Bottom}" />
+                                            <Text text="{table>Unit}" />
+                                            <Text text="{table>LegcyBarcode}" />
+                                            <Text text="{table>LegacyLot}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- ========================================================= -->
+                            <!-- 2. BOX PACKING HEADER (ZI_BOX_PACK_HDR1) - ALL 16 FIELDS  -->
+                            <!-- ========================================================= -->
+                            <Table
+                                id="boxHdrTable"
+                                items="{table>/pagedData}"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onSelectLineItem"
+                                itemPress=".onLineItemPress"
+                                inset="false"
+                                visible="{= ${table>/activeDataset} === 'boxHdr' }"
+                                noDataText="No records found in ZI_BOX_PACK_HDR1"
+                                class="mrpCustomTable">
+                                <columns>
+                                    <Column width="220px"><Text text="BoxPackId" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Plant" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="ScheduleDate311" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="PostingDate261" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="DocumentDate261" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="PackingRatio" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="SizeSet" class="colHeader" /></Column>
+                                    <Column width="170px"><Text text="GoodsMovementCode261" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="OverallStatus" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="CurrentStep" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="RetryAllowed" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="PostingMode" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="MatDoc311" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="MatDocYear311" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="MatDoc261" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="MatDocYear261" class="colHeader" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" type="Active">
+                                        <cells>
+                                            <Text text="{table>BoxPackId}" class="boldOrderId" />
+                                            <Text text="{table>Plant}" />
+                                            <Text text="{table>ScheduleDate311}" />
+                                            <Text text="{table>PostingDate261}" />
+                                            <Text text="{table>DocumentDate261}" />
+                                            <Text text="{table>PackingRatio}" />
+                                            <Text text="{table>SizeSet}" />
+                                            <Text text="{table>GoodsMovementCode261}" />
+                                            <ObjectStatus
+                                                text="{table>OverallStatus}"
+                                                state="Success"
+                                                inverted="true"
+                                                class="statusPill" />
+                                            <Text text="{table>CurrentStep}" />
+                                            <Text text="{table>RetryAllowed}" />
+                                            <Text text="{table>PostingMode}" />
+                                            <Text text="{table>MatDoc311}" />
+                                            <Text text="{table>MatDocYear311}" />
+                                            <Text text="{table>MatDoc261}" />
+                                            <Text text="{table>MatDocYear261}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- ========================================================= -->
+                            <!-- 3. BOX PACKING ITEM (ZI_BOX_PACK_ITEM1) - ALL 15 FIELDS   -->
+                            <!-- ========================================================= -->
+                            <Table
+                                id="boxItemTable"
+                                items="{table>/pagedData}"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onSelectLineItem"
+                                itemPress=".onLineItemPress"
+                                inset="false"
+                                visible="{= ${table>/activeDataset} === 'boxItem' }"
+                                noDataText="No records found in ZI_BOX_PACK_ITEM1"
+                                class="mrpCustomTable">
+                                <columns>
+                                    <Column width="220px"><Text text="BoxPackId" class="colHeader" /></Column>
+                                    <Column width="220px"><Text text="ItemId" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Plant" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="SalesOrder" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="SalesOrderItem" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Batch" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="ProductionOrder" class="colHeader" /></Column>
+                                    <Column width="160px"><Text text="StyleName" class="colHeader" /></Column>
+                                    <Column width="100px"><Text text="Quantity" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Zsize" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="Color" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Recdbatch" class="colHeader" /></Column>
+                                    <Column width="130px"><Text text="Barcode" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="ScanIndicator" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="DeletionMark" class="colHeader" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" type="Active">
+                                        <cells>
+                                            <Text text="{table>BoxPackId}" />
+                                            <Text text="{table>ItemId}" class="boldOrderId" />
+                                            <Text text="{table>Plant}" />
+                                            <Text text="{table>SalesOrder}" />
+                                            <Text text="{table>SalesOrderItem}" />
+                                            <Text text="{table>Batch}" class="batchText" />
+                                            <Text text="{table>ProductionOrder}" />
+                                            <Text text="{table>StyleName}" />
+                                            <Text text="{table>Quantity}" />
+                                            <Text text="{table>Zsize}" />
+                                            <Text text="{table>Color}" />
+                                            <Text text="{table>Recdbatch}" />
+                                            <Text text="{table>Barcode}" />
+                                            <Text text="{table>ScanIndicator}" />
+                                            <Text text="{table>DeletionMark}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- ========================================================= -->
+                            <!-- 4. SET PACKING HEADER (ZI_SET_PACK_HDR) - ALL 9 FIELDS    -->
+                            <!-- ========================================================= -->
+                            <Table
+                                id="setHdrTable"
+                                items="{table>/pagedData}"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onSelectLineItem"
+                                itemPress=".onLineItemPress"
+                                inset="false"
+                                visible="{= ${table>/activeDataset} === 'setHdr' }"
+                                noDataText="No records found in ZI_SET_PACK_HDR"
+                                class="mrpCustomTable">
+                                <columns>
+                                    <Column width="220px"><Text text="SetId" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="PostingDate" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="DocumentDate" class="colHeader" /></Column>
+                                    <Column width="170px"><Text text="HeaderText" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="PackingRatio" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="SizeSet" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Status" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Zmblnr" class="colHeader" /></Column>
+                                    <Column width="100px"><Text text="Zmjahr" class="colHeader" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" type="Active">
+                                        <cells>
+                                            <Text text="{table>SetId}" class="boldOrderId" />
+                                            <Text text="{table>PostingDate}" />
+                                            <Text text="{table>DocumentDate}" />
+                                            <Text text="{table>HeaderText}" />
+                                            <Text text="{table>PackingRatio}" />
+                                            <Text text="{table>SizeSet}" />
+                                            <ObjectStatus
+                                                text="{table>Status}"
+                                                state="Success"
+                                                inverted="true"
+                                                class="statusPill" />
+                                            <Text text="{table>Zmblnr}" />
+                                            <Text text="{table>Zmjahr}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- ========================================================= -->
+                            <!-- 5. SET PACKING ITEM (ZI_SET_PACK_ITEM) - ALL 18 FIELDS    -->
+                            <!-- ========================================================= -->
+                            <Table
+                                id="setItemTable"
+                                items="{table>/pagedData}"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onSelectLineItem"
+                                itemPress=".onLineItemPress"
+                                inset="false"
+                                visible="{= ${table>/activeDataset} === 'setItem' }"
+                                noDataText="No records found in ZI_SET_PACK_ITEM"
+                                class="mrpCustomTable">
+                                <columns>
+                                    <Column width="220px"><Text text="ItemId" class="colHeader" /></Column>
+                                    <Column width="220px"><Text text="SetId" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Plant" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="SalesOrder" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="SalesOrderItem" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="PackingRatio" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="BarcodeNumber" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Batch" class="colHeader" /></Column>
+                                    <Column width="120px"><Text text="Recbatch" class="colHeader" /></Column>
+                                    <Column width="140px"><Text text="ProductionOrder" class="colHeader" /></Column>
+                                    <Column width="130px"><Text text="LotNumber" class="colHeader" /></Column>
+                                    <Column width="160px"><Text text="StyleName" class="colHeader" /></Column>
+                                    <Column width="80px"><Text text="Uom" class="colHeader" /></Column>
+                                    <Column width="100px"><Text text="Quantity" class="colHeader" /></Column>
+                                    <Column width="90px"><Text text="Zsize" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="Color" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="ScanIndicator" class="colHeader" /></Column>
+                                    <Column width="110px"><Text text="DeletionMark" class="colHeader" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" type="Active">
+                                        <cells>
+                                            <Text text="{table>ItemId}" class="boldOrderId" />
+                                            <Text text="{table>SetId}" />
+                                            <Text text="{table>Plant}" />
+                                            <Text text="{table>SalesOrder}" />
+                                            <Text text="{table>SalesOrderItem}" />
+                                            <Text text="{table>PackingRatio}" />
+                                            <Text text="{table>BarcodeNumber}" />
+                                            <Text text="{table>Batch}" class="batchText" />
+                                            <Text text="{table>Recbatch}" />
+                                            <Text text="{table>ProductionOrder}" />
+                                            <Text text="{table>LotNumber}" />
+                                            <Text text="{table>StyleName}" />
+                                            <Text text="{table>Uom}" />
+                                            <Text text="{table>Quantity}" />
+                                            <Text text="{table>Zsize}" />
+                                            <Text text="{table>Color}" />
+                                            <Text text="{table>ScanIndicator}" />
+                                            <Text text="{table>DeletionMark}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                        </ScrollContainer>
+
+                        <!-- PAGINATION TOOLBAR -->
+                        <Toolbar class="tablePaginationToolbar">
+                            <HBox alignItems="Center" class="recordCounterBox">
+                                <Text
+                                    text="{= 'Showing ' + ${table>/startIndex} + ' - ' + ${table>/endIndex} + ' of ' + ${table>/totalRecords} + ' records'}"
+                                    class="paginationRecordText" />
+                            </HBox>
+
+                            <ToolbarSpacer />
+
+                            <HBox alignItems="Center" class="paginationNavBox">
+                                <Button
+                                    icon="sap-icon://navigation-first-arrow"
+                                    tooltip="First Page"
+                                    type="Transparent"
+                                    enabled="{table>/canGoPrevious}"
+                                    press=".onFirstPage"
+                                    class="navBtn" />
+
+                                <Button
+                                    icon="sap-icon://navigation-left-arrow"
+                                    tooltip="Previous Page"
+                                    type="Transparent"
+                                    enabled="{table>/canGoPrevious}"
+                                    press=".onPreviousPage"
+                                    class="navBtn" />
+
+                                <HBox alignItems="Center" class="pageIndicatorPill">
+                                    <Text
+                                        text="{= 'Page ' + ${table>/currentPage} + ' of ' + ${table>/totalPages} }"
+                                        class="pageIndicatorText" />
+                                </HBox>
+
+                                <Button
+                                    icon="sap-icon://navigation-right-arrow"
+                                    tooltip="Next Page"
+                                    type="Transparent"
+                                    enabled="{table>/canGoNext}"
+                                    press=".onNextPage"
+                                    class="navBtn" />
+
+                                <Button
+                                    icon="sap-icon://navigation-last-arrow"
+                                    tooltip="Last Page"
+                                    type="Transparent"
+                                    enabled="{table>/canGoNext}"
+                                    press=".onLastPage"
+                                    class="navBtn" />
+                            </HBox>
+                        </Toolbar>
+
+                    </content>
+                </Panel>
+
+            </VBox>
+
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="Refresh Dashboard"
+                    icon="sap-icon://refresh"
+                    type="Emphasized"
+                    press=".onRefresh" />
+            </Toolbar>
+        </footer>
+
+    </Page>
+
+</mvc:View>

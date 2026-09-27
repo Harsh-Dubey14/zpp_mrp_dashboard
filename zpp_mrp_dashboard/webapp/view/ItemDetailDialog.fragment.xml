@@ -1,0 +1,137 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form">
+
+    <Dialog
+        id="itemDetailDialog"
+        title="Production Line Item Details"
+        icon="sap-icon://inspection"
+        contentWidth="620px"
+        resizable="true"
+        draggable="true"
+        class="sapUiResponsiveContentPadding itemDetailDialog">
+
+        <customHeader>
+            <Toolbar class="dialogCustomHeader">
+                <core:Icon src="sap-icon://bar-code" class="dialogHeaderIcon" />
+                <Title text="MRP Item Detail Inspector" level="H3" class="dialogHeaderTitle" />
+                <ToolbarSpacer />
+                <ObjectStatus
+                    text="{detail>/statusText}"
+                    state="{detail>/statusState}"
+                    icon="{detail>/statusIcon}"
+                    inverted="true"
+                    class="dialogStatusPill" />
+            </Toolbar>
+        </customHeader>
+
+        <content>
+            <VBox class="dialogBody">
+
+                <!-- Item Quick Summary Strip -->
+                <HBox class="detailSummaryStrip" alignItems="Center" justifyContent="SpaceBetween">
+                    <VBox>
+                        <Text text="MANUFACTURING ORDER" class="detailStripLabel" />
+                        <Title text="{detail>/displayOrder}" level="H2" class="detailStripOrder" />
+                        <Text text="{detail>/orderSubtitle}" class="detailStripSub" />
+                    </VBox>
+                    <VBox alignItems="End">
+                        <Text text="UNIQUE TRACKING ID" class="detailStripLabel" />
+                        <Text text="{detail>/UniqueNo}" class="detailStripId" />
+                        <Text text="{detail>/displayPlant}" class="detailStripPlant" />
+                    </VBox>
+                </HBox>
+
+                <!-- Detailed Specifications Form -->
+                <form:SimpleForm
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="4"
+                    labelSpanL="4"
+                    labelSpanM="4"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="0"
+                    emptySpanL="0"
+                    emptySpanM="0"
+                    emptySpanS="0"
+                    columnsXL="2"
+                    columnsL="2"
+                    columnsM="1"
+                    singleContainerFullSize="false"
+                    class="detailForm">
+
+                    <form:content>
+                        <!-- Production & Sales Group -->
+                        <core:Title text="Order &amp; Material Specifications" icon="sap-icon://product" />
+
+                        <Label text="Manufacturing Order" />
+                        <Text text="{= ${detail>/Manufacturingorder} ? ${detail>/Manufacturingorder} : 'Not Assigned (Standalone Label)'}" />
+
+                        <Label text="Sales Order &amp; Item" />
+                        <Text text="{= ${detail>/Salesorder} ? ${detail>/Salesorder} + (${detail>/Salesorderitem} &amp;&amp; ${detail>/Salesorderitem} !== '0' ? ' / Item ' + ${detail>/Salesorderitem} : '') : 'Internal Stock / Direct'}" />
+
+                        <Label text="Material / Style" />
+                        <Text text="{detail>/displayMaterial}" class="detailFormBold" />
+
+                        <Label text="Batch Number" />
+                        <Text text="{detail>/displayBatch}" class="batchText" />
+
+                        <Label text="Apparel Color" />
+                        <Text text="{detail>/displayColor}" />
+
+                        <Label text="Apparel Size" />
+                        <Text text="{detail>/displaySize}" />
+
+                        <!-- Facility & Logistics Group -->
+                        <core:Title text="Facility, Tracking &amp; Status" icon="sap-icon://factory" />
+
+                        <Label text="Plant / Facility" />
+                        <Text text="{detail>/plantDescription}" />
+
+                        <Label text="Unit Price &amp; UOM" />
+                        <Text text="{= (${detail>/Price} ? ${detail>/Price} : '0.00') + ' ' + (${detail>/Unit} ? ${detail>/Unit} : 'ST')}" />
+
+                        <Label text="Legacy Barcode" />
+                        <Text text="{= ${detail>/LegcyBarcode} ? ${detail>/LegcyBarcode} : 'N/A'}" />
+
+                        <Label text="Legacy Lot" />
+                        <Text text="{= ${detail>/LegacyLot} ? ${detail>/LegacyLot} : 'N/A'}" />
+
+                        <Label text="Label Status" />
+                        <VBox>
+                            <ObjectStatus
+                                text="{detail>/statusText}"
+                                state="{detail>/statusState}"
+                                icon="{detail>/statusIcon}" />
+                            <Text text="{detail>/statusDescription}" class="detailStatusExpl" />
+                        </VBox>
+
+                        <Label text="Packaging Status" />
+                        <Text text="{detail>/packagingSummary}" class="detailFormHighlight" />
+
+                    </form:content>
+                </form:SimpleForm>
+
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button
+                text="Filter Graphs by this Item"
+                icon="sap-icon://filter"
+                type="Emphasized"
+                press=".onApplyFilterFromDialog" />
+        </beginButton>
+
+        <endButton>
+            <Button
+                text="Close"
+                press=".onCloseItemDetailDialog" />
+        </endButton>
+
+    </Dialog>
+
+</core:FragmentDefinition>
